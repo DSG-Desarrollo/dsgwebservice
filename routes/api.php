@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WialonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('wialon')->group(function () {
+    Route::post('/login', [WialonController::class, 'login'])->name('wialon.login');
+    Route::post('/logout', [WialonController::class, 'logout'])->name('wialon.logout');
+    Route::post('/call', [WialonController::class, 'callWialon'])->name('wialon.call');
 });
